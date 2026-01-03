@@ -1,0 +1,29 @@
+cd ~/turtlebot2_ws
+source /opt/ros/humble/setup.bash
+source ~/ros2_humble/install/setup.bash
+colcon build --packages-select human_follower --symlink-install
+source install/setup.bash
+
+source /opt/ros/humble/setup.bash
+source ~/ros2_humble/install/setup.bash
+source ~/turtlebot2_ws/install/setup.bash
+ros2 launch kobuki_node kobuki_node-launch.py
+
+source /opt/ros/humble/setup.bash
+source ~/ros2_humble/install/setup.bash
+source ~/turtlebot2_ws/install/setup.bash
+ros2 launch realsense2_camera rs_launch.py align_depth.enable:=true
+
+#ros2 launch realsense2_camera rs_launch.py align_depth.true:=true
+
+
+source /opt/ros/humble/setup.bash
+source ~/ros2_humble/install/setup.bash
+source ~/turtlebot2_ws/install/setup.bash
+export PYTHONUNBUFFERED=1
+ros2 run human_follower vision_node
+
+source /opt/ros/humble/setup.bash
+source ~/ros2_humble/install/setup.bash
+source ~/turtlebot2_ws/install/setup.bash
+ros2 run human_follower control_node
